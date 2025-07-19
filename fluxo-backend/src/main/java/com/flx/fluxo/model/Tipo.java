@@ -1,5 +1,13 @@
 package com.flx.fluxo.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
+@Getter
+@AllArgsConstructor
 public enum Tipo {
-    ENTRADA, SAIDA
+    ENTRADA("Entrada"),
+    SAIDA("Saída");
+
+    private final String nome;
 }
