@@ -1,6 +1,6 @@
-💰 Minhas Finanças - Controle Seus Ganhos e Gastos
+💰 Fluxo - Controle Seus Ganhos e Gastos
 💡 Sobre o Projeto
-O Minhas Finanças é um aplicativo intuitivo e eficiente projetado para ajudar você a controlar seus ganhos e gastos de forma simples e eficaz. Com ele, você poderá ter uma visão clara da sua saúde financeira, identificar onde seu dinheiro está indo e tomar decisões mais inteligentes para alcançar seus objetivos.
+O Fluxo é uma aplicação web projetada para ajudar você a controlar seus ganhos e gastos de forma simples e eficaz. Com ele, você poderá ter uma visão clara da sua saúde financeira, identificar onde seu dinheiro está indo e tomar decisões mais inteligentes para alcançar seus objetivos.
 
 ✨ Funcionalidades Principais:
 - Registro de Ganhos: Cadastre todas as suas fontes de receita (salário, renda extra, bônus, etc.).
