@@ -3,9 +3,11 @@ package com.flx.fluxo.service.login;
 import com.flx.fluxo.model.DAO.login.UserDAO;
 import com.flx.fluxo.model.login.User;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 
+@Service
 public class UserService {
 
     @Autowired
