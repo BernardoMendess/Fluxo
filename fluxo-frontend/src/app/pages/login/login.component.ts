@@ -38,7 +38,7 @@ export class LoginComponent {
   }
 
   success(){
-    this.router.navigate(["/signup"])
+    this.router.navigate(["/transacao"])
     this.toastService.success("Login efetuado com sucesso")
   }
 

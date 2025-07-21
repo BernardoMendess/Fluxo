@@ -2,12 +2,13 @@
 
 main {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
-    height: 100%;
+    flex-direction: column; 
+    align-items: center; 
+    justify-content: center; 
+    height: 100%; 
+    width: 100%; 
 
-    section {
+    section { 
         height: 100%; 
         display: flex;
         flex-direction: column;
@@ -16,8 +17,10 @@ main {
     }
 
     .form-section{
-        flex-grow: 0.5;
-        padding: 0 35px;
+   
+        width: 100%; 
+        max-width: 500px; 
+        padding: 0 35px; 
 
         h1 {
             font-size: 32px;

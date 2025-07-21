@@ -1,0 +1,25 @@
+<main>
+    <section class="list-layout-section">
+        <div class="header-section">
+            <h1>{{ title }}</h1>
+            <div class="actions-wrapper">
+                <ng-content select="[search-area]"></ng-content>
+                
+                <button
+                    *ngIf="primaryBtnText"
+                    class="btn-primary"
+                    (click)="emitPrimaryAction()"
+                    [disabled]="disablePrimaryBtn"
+                >
+                    <span class="icon-plus" *ngIf="showPrimaryBtnIcon">+</span> {{ primaryBtnText }}
+                </button>
+            </div>
+        </div>
+
+        <div class="content-container">
+            <ng-content></ng-content>
+        </div>
+
+        <ng-content select="[footer-area]"></ng-content>
+    </section>
+</main>
