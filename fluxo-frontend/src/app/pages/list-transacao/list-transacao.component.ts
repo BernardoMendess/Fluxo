@@ -3,53 +3,48 @@ import { Router } from '@angular/router';
 import { DefaultListLayoutComponent } from '../../components/default-list-layout/default-list-layout.component';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
-interface Transacao {
-  id: number;
-  descricao: string;
-  valor: number;
-  tipoTransacao: 'RECEITA' | 'DESPESA';
-  dataTransacao: string;
-}
+import { TransacaoService } from '../../services/transacao.service';
+import { Transacao } from '../../types/transacao.type';
+import { HttpClientModule } from '@angular/common/http';
 
 @Component({
   selector: 'app-transacao-list',
   standalone: true,
-  imports: [DefaultListLayoutComponent, CommonModule, FormsModule],
+  imports: [DefaultListLayoutComponent, CommonModule, FormsModule, HttpClientModule],
   templateUrl: './list-transacao.component.html',
   styleUrls: ['./list-transacao.component.scss']
 })
 export class TransacaoListComponent implements OnInit {
-  searchTerm: string = '';
+  pesquisa: string = '';
 
-  private allTransacoes: Transacao[] = [
-    { id: 1, descricao: 'Aluguel do Apt', valor: 1500.00, tipoTransacao: 'DESPESA', dataTransacao: '2025-07-01' },
-    { id: 2, descricao: 'Salário Mensal', valor: 5000.00, tipoTransacao: 'RECEITA', dataTransacao: '2025-07-05' },
-    { id: 3, descricao: 'Compras Supermercado', valor: 350.50, tipoTransacao: 'DESPESA', dataTransacao: '2025-07-10' },
-    { id: 4, descricao: 'Freelance Design', valor: 800.00, tipoTransacao: 'RECEITA', dataTransacao: '2025-07-12' },
-    { id: 5, descricao: 'Conta de Luz', valor: 120.75, tipoTransacao: 'DESPESA', dataTransacao: '2025-07-15' },
-    { id: 6, descricao: 'Internet', valor: 99.90, tipoTransacao: 'DESPESA', dataTransacao: '2025-07-15' },
-  ];
-
+  allTransacoes: Transacao[] = [];
   filteredTransacoes: Transacao[] = [];
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private transacaoService: TransacaoService) { }
 
   ngOnInit(): void {
-    this.filteredTransacoes = [...this.allTransacoes];
+    this.transacaoService.findAll().subscribe({
+      next: (data) => {
+        this.allTransacoes = data;
+        this.applyTransacaoFilter();
+      },
+      error: (error) => {
+        console.error('Erro ao carregar transações:', error);
+      }
+    });
   }
 
   applyTransacaoFilter(): void {
-    if (!this.searchTerm) {
+    if (!this.pesquisa) {
       this.filteredTransacoes = [...this.allTransacoes];
       return;
     }
 
-    const lowerCaseSearchTerm = this.searchTerm.toLowerCase();
+    const lowerCaseSearchTerm = this.pesquisa.toLowerCase();
     this.filteredTransacoes = this.allTransacoes.filter(transacao =>
       transacao.descricao.toLowerCase().includes(lowerCaseSearchTerm) ||
       transacao.tipoTransacao.toLowerCase().includes(lowerCaseSearchTerm) ||
-      transacao.dataTransacao.includes(lowerCaseSearchTerm)
+      (transacao.dataTransacao instanceof Date ? transacao.dataTransacao.toISOString().split('T')[0].includes(lowerCaseSearchTerm) : String(transacao.dataTransacao).includes(lowerCaseSearchTerm))
     );
   }
 

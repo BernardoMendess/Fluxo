@@ -5,6 +5,8 @@ import com.flx.fluxo.model.Transacao;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @AllArgsConstructor
 public class TransacaoService {
@@ -17,5 +19,9 @@ public class TransacaoService {
 
     public Transacao findById(long id){
         return transacaoDAO.findById(id).get();
+    }
+
+    public List<Transacao> findAll(){
+        return transacaoDAO.findAll();
     }
 }

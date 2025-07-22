@@ -7,6 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum Tipo {
     ENTRADA("Entrada"),
+    INVESTIMENTO("Investimento"),
     SAIDA("Saída");
 
     private final String nome;
