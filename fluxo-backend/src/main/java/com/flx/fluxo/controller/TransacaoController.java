@@ -6,10 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.val;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -37,6 +34,16 @@ public class TransacaoController {
             return ResponseEntity.ok(transacoes);
         } catch (Exception e) {
             throw new RuntimeException("Erro ao recuperar transações: " + e.getMessage(), e);
+        }
+    }
+
+    @GetMapping("/id")
+    public ResponseEntity<Transacao> get(@PathVariable long id) {
+        try {
+            val transacao = transacaoService.findById(id);
+            return ResponseEntity.ok(transacao);
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao obter transação: " + e.getMessage(), e);
         }
     }
 

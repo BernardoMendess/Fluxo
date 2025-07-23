@@ -18,7 +18,7 @@ public class TransacaoService {
     }
 
     public Transacao findById(long id){
-        return transacaoDAO.findById(id).get();
+        return transacaoDAO.findObjById(id);
     }
 
     public List<Transacao> findAll(){

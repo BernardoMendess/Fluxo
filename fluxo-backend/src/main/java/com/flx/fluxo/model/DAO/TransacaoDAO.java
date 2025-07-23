@@ -8,4 +8,6 @@ import java.util.List;
 public interface TransacaoDAO extends CrudRepository<Transacao, Long> {
 
     List<Transacao> findAll();
+
+    Transacao findObjById(long id);
 }
