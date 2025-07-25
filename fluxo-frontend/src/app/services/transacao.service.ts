@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Transacao } from '../types/transacao.type';
-import { tap, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -13,5 +13,9 @@ export class TransacaoService {
 
   findAll(): Observable<Transacao[]> { 
     return this.httpClient.get<Transacao[]>(this.apiUrl);
+  }
+
+  save(transacao: Transacao): Observable<Transacao> {
+    return this.httpClient.post<Transacao>(this.apiUrl, transacao);
   }
 }

@@ -1,0 +1,59 @@
+<app-default-form-layout
+  title="Nova Transação"
+  submitBtnText="Salvar Transação"
+  [disableSubmitBtn]="transacaoForm.invalid || isLoading"
+  (submitAction)="onSave()"
+  (cancelAction)="onCancel()"
+  (backAction)="onCancel()"
+>
+  <form [formGroup]="transacaoForm">
+    <div class="form-grid">
+
+      <div class="form-field full-width">
+        <label for="descricao">Descrição</label>
+        <input id="descricao" type="text" formControlName="descricao" placeholder="Ex: Compra no mercado">
+        <div *ngIf="transacaoForm.get('descricao')?.invalid && transacaoForm.get('descricao')?.touched" class="error-message">
+          Descrição é obrigatória.
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="valor">Valor (R$)</label>
+        <input id="valor" type="number" formControlName="valor" placeholder="150,50">
+         <div *ngIf="transacaoForm.get('valor')?.invalid && transacaoForm.get('valor')?.touched" class="error-message">
+          Valor é obrigatório.
+        </div>
+      </div>
+
+      <div class="form-field">
+        <label for="dataTransacao">Data da Transação</label>
+        <input id="dataTransacao" type="date" formControlName="dataTransacao">
+      </div>
+      
+      <div class="form-field">
+        <label for="tipoTransacao">Tipo</label>
+        <select id="tipoTransacao" formControlName="tipoTransacao">
+          <option *ngFor="let tipo of tiposTransacao" [value]="tipo.value">{{ tipo.label }}</option>
+        </select>
+      </div>
+
+      <div class="form-field">
+        <label for="idCategoria">Categoria</label>
+        <select id="idCategoria" formControlName="idCategoria">
+          <option [ngValue]="null" disabled>Selecione uma categoria</option>
+          <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nome }}</option>
+        </select>
+         <div *ngIf="transacaoForm.get('idCategoria')?.invalid && transacaoForm.get('idCategoria')?.touched" class="error-message">
+          Selecione uma categoria.
+        </div>
+      </div>
+
+      <div class="form-field full-width">
+        <label for="mesesRecorrencia">Recorrência (em meses)</label>
+        <input id="mesesRecorrencia" type="number" formControlName="mesesRecorrencia">
+        <small>Deixe 0 se não for uma transação recorrente.</small>
+      </div>
+
+    </div>
+  </form>
+</app-default-form-layout>

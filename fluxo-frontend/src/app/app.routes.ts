@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './pages/login/login.component'
-import { TransacaoListComponent } from './pages/list-transacao/list-transacao.component';
+import { TransacaoListComponent } from './pages/transacao/transacao-list/transacao-list.component';
+import { TransacaoFormComponent } from './pages/transacao/transacao-form/transacao-form.component';
 import { SignupComponent } from './pages/signup/signup.component';
 import { AuthGuard } from './services/auth-guard.service';
 
@@ -16,6 +17,11 @@ export const routes: Routes = [
     {
         path:"transacao",
         component: TransacaoListComponent,
+        canActivate: [AuthGuard]
+    },
+    {
+        path:"transacao/novo",
+        component: TransacaoFormComponent,
         canActivate: [AuthGuard]
     }
 ];
