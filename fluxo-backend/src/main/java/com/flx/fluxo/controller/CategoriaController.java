@@ -31,7 +31,7 @@ public class CategoriaController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Categoria>> listarCategorias(@RequestBody Categoria categoria){
+    public ResponseEntity<List<Categoria>> listarCategorias(){
         try {
             val categorias = categoriaService.findAll();
             return ResponseEntity.ok(categorias);

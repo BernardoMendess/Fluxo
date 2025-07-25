@@ -20,8 +20,7 @@ public class TransacaoController {
     @PostMapping
     public ResponseEntity<Transacao> save(@RequestBody Transacao transacao) {
         try {
-            val transacaoSalva = transacaoService.save(transacao);
-            return ResponseEntity.ok(transacaoSalva);
+            return ResponseEntity.ok(transacaoService.save(transacao));
         } catch (Exception e) {
             throw new RuntimeException("Erro ao salvar transação: " + e.getMessage(), e);
         }
@@ -30,8 +29,7 @@ public class TransacaoController {
     @GetMapping
     public ResponseEntity<List<Transacao>> list(){
         try{
-            val transacoes = transacaoService.findAll();
-            return ResponseEntity.ok(transacoes);
+            return ResponseEntity.ok(transacaoService.findAll());
         } catch (Exception e) {
             throw new RuntimeException("Erro ao recuperar transações: " + e.getMessage(), e);
         }
@@ -40,8 +38,7 @@ public class TransacaoController {
     @GetMapping("/id")
     public ResponseEntity<Transacao> get(@PathVariable long id) {
         try {
-            val transacao = transacaoService.findById(id);
-            return ResponseEntity.ok(transacao);
+            return ResponseEntity.ok(transacaoService.findById(id));
         } catch (Exception e) {
             throw new RuntimeException("Erro ao obter transação: " + e.getMessage(), e);
         }
