@@ -1,0 +1,105 @@
+@import "../../../styles/variables.scss";
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 30px;
+    box-sizing: border-box;
+    background-color: #f4f7fa;
+}
+
+.form-layout-section {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: 100%;
+    max-width: 800px; // Formulários geralmente são mais estreitos
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+    box-sizing: border-box;
+}
+
+.header-section {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #e0e0e0;
+    padding-bottom: 20px;
+
+    h1 {
+        font-size: 28px;
+        color: $primary-color;
+        margin: 0;
+    }
+}
+
+.content-container {
+    width: 100%;
+}
+
+.footer-actions {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 15px;
+    padding-top: 20px;
+    border-top: 1px solid #e0e0e0;
+    margin-top: auto; // Empurra o rodapé para baixo
+}
+
+// Estilos dos Botões
+button {
+    border: none;
+    padding: 10px 25px;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+    }
+}
+
+.btn-primary {
+    background-color: $primary-color;
+    color: white;
+
+    &:hover:not(:disabled) {
+        background-color: darken($primary-color, 10%);
+    }
+}
+
+.btn-secondary {
+    background-color: #f0f0f0;
+    color: #555;
+    border: 1px solid #ccc;
+
+    &:hover:not(:disabled) {
+        background-color: #e0e0e0;
+    }
+}
+
+.btn-back {
+    background: none;
+    color: $primary-color;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 5px;
+
+    .icon-arrow-left {
+        font-size: 20px;
+    }
+
+    &:hover {
+        text-decoration: underline;
+    }
+}
