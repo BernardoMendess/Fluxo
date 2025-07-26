@@ -1,11 +1,5 @@
 <main>
   <section class="form-layout-section">
-    <div class="header-section">
-      <h1>{{ title }}</h1>
-      <button class="btn-back" (click)="emitBackAction()">
-        <span class="icon-arrow-left">←</span> Voltar
-      </button>
-    </div>
 
     <div class="content-container">
       <ng-content></ng-content>
@@ -14,8 +8,8 @@
     <div class="footer-actions">
       <button 
         class="btn-secondary" 
-        (click)="emitCancelAction()">
-        {{ cancelBtnText }}
+        (click)="emitBackAction()">
+        {{ backBtnText }}
       </button>
 
       <button 

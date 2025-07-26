@@ -11,19 +11,14 @@ import { CommonModule } from '@angular/common';
 export class DefaultFormLayoutComponent {
   @Input() title: string = "Formulário";
   @Input() submitBtnText: string = "Salvar";
-  @Input() cancelBtnText: string = "Cancelar";
+  @Input() backBtnText: string = "Voltar";
   @Input() disableSubmitBtn: boolean = false;
   
   @Output("submitAction") onSubmitAction = new EventEmitter<void>();
-  @Output("cancelAction") onCancelAction = new EventEmitter<void>();
   @Output("backAction") onBackAction = new EventEmitter<void>();
 
   emitSubmitAction(): void {
     this.onSubmitAction.emit();
-  }
-
-  emitCancelAction(): void {
-    this.onCancelAction.emit();
   }
 
   emitBackAction(): void {
