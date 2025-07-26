@@ -19,6 +19,7 @@ public class TransacaoService {
     private UserService userService;
 
     public Transacao save(Transacao transacao) {
+        transacao.setIdUsuario(userService.findIdUsuarioAtual());
         transacao.setDataCriacao(LocalDate.now());
         return transacaoDAO.save(transacao);
     }
