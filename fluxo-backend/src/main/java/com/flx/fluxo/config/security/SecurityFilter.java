@@ -1,9 +1,9 @@
 package com.flx.fluxo.config.security;
 
 
-import com.flx.fluxo.model.login.User;
-import com.flx.fluxo.service.login.TokenService;
-import com.flx.fluxo.service.login.UserService;
+import com.flx.fluxo.model.user.User;
+import com.flx.fluxo.service.user.TokenService;
+import com.flx.fluxo.service.user.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -35,8 +35,7 @@ public class SecurityFilter extends OncePerRequestFilter {
 
         if(login != null){
             User user = userService.findByEmail(login).orElse(null);
-            var authorities = Collections.singletonList(new SimpleGrantedAuthority("ROLE_USER"));
-            var authentication = new UsernamePasswordAuthenticationToken(user, null, authorities);
+            var authentication = new UsernamePasswordAuthenticationToken(user, null, user.getAuthorities());
             SecurityContextHolder.getContext().setAuthentication(authentication);
         }
         filterChain.doFilter(request, response);

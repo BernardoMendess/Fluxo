@@ -9,7 +9,7 @@
   <form [formGroup]="transacaoForm">
     <div class="form-grid">
 
-      <div class="form-field full-width">
+      <div class="form-field">
         <label for="descricao">Descrição</label>
         <input id="descricao" type="text" formControlName="descricao" placeholder="Ex: Compra no mercado">
         <div *ngIf="transacaoForm.get('descricao')?.invalid && transacaoForm.get('descricao')?.touched" class="error-message">
@@ -33,6 +33,7 @@
       <div class="form-field">
         <label for="tipoTransacao">Tipo</label>
         <select id="tipoTransacao" formControlName="tipoTransacao">
+          <option [ngValue]="null" disabled>Selecione uma categoria</option>
           <option *ngFor="let tipo of tiposTransacao" [value]="tipo.value">{{ tipo.label }}</option>
         </select>
       </div>
@@ -48,7 +49,7 @@
         </div>
       </div>
 
-      <div class="form-field full-width">
+      <div class="form-field">
         <label for="mesesRecorrencia">Recorrência (em meses)</label>
         <input id="mesesRecorrencia" type="number" formControlName="mesesRecorrencia">
         <small>Deixe 0 se não for uma transação recorrente.</small>

@@ -1,7 +1,8 @@
-package com.flx.fluxo.model.DAO.login;
+package com.flx.fluxo.model.DAO.user;
 
-import com.flx.fluxo.model.login.User;
+import com.flx.fluxo.model.user.User;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Optional;
 

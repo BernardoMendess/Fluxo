@@ -28,4 +28,17 @@ export class LoginService {
       })
     )
   }
+
+  getToken(): string | null {
+    return sessionStorage.getItem('auth-token');
+  }
+
+  isLoggedIn(): boolean {
+    return this.getToken() !== null;
+  }
+
+  logout(): void {
+    sessionStorage.removeItem('auth-token');
+    sessionStorage.removeItem('username');
+  }
 }

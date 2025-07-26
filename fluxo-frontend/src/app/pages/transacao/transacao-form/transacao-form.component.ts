@@ -15,7 +15,7 @@ import { Categoria } from '../../../types/categoria.type';
   imports: [
     CommonModule,
     ReactiveFormsModule,
-    DefaultFormLayoutComponent 
+    DefaultFormLayoutComponent
   ],
   templateUrl: './transacao-form.component.html',
   styleUrls: ['./transacao-form.component.scss']
@@ -48,7 +48,7 @@ export class TransacaoFormComponent implements OnInit {
       descricao: ['', [Validators.required, Validators.minLength(3)]],
       valor: [null, [Validators.required, Validators.min(0.01)]],
       dataTransacao: [new Date().toISOString().split('T')[0], Validators.required],
-      tipoTransacao: ['DESPESA', Validators.required],
+      tipoTransacao: [null, Validators.required],
       idCategoria: [null, Validators.required],
       mesesRecorrencia: [0, [Validators.required, Validators.min(0)]]
     });
@@ -74,7 +74,6 @@ export class TransacaoFormComponent implements OnInit {
       ...formValue,
       valor: Math.round(formValue.valor * 100),
 
-      idUsuario: 1 
     };
 
     this.transacaoService.save(payload).pipe(
@@ -91,6 +90,6 @@ export class TransacaoFormComponent implements OnInit {
   }
 
   onCancel(): void {
-    this.router.navigate(['/dashboard']); 
+    this.router.navigate(['/transacao']);
   }
 }
