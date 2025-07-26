@@ -1,11 +1,8 @@
-package com.flx.fluxo.controller.login;
+package com.flx.fluxo.controller.user;
 
-import com.flx.fluxo.model.login.LoginRequestDTO;
-import com.flx.fluxo.model.login.RegisterRequestDTO;
-import com.flx.fluxo.model.login.ResponseDTO;
-import com.flx.fluxo.model.login.User;
-import com.flx.fluxo.service.login.TokenService;
-import com.flx.fluxo.service.login.UserService;
+import com.flx.fluxo.model.user.*;
+import com.flx.fluxo.service.user.TokenService;
+import com.flx.fluxo.service.user.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.val;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +39,7 @@ public class AuthController {
 
         if (user.isEmpty()){
             val hashedPassword = passwordEncoder.encode(body.password());
-            val newUser = new User(null, body.name(), body.email(), hashedPassword);
+            val newUser = new User(null, body.name(), body.email(), hashedPassword, UserRole.USER);
             userService.save(newUser);
 
 

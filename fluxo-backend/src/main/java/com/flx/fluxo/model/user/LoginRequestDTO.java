@@ -1,4 +1,4 @@
-package com.flx.fluxo.model.login;
+package com.flx.fluxo.model.user;
 
 public record LoginRequestDTO (
         String email,

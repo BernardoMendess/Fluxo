@@ -1,6 +1,6 @@
-package com.flx.fluxo.service.login;
+package com.flx.fluxo.service.user;
 
-import com.flx.fluxo.model.login.User;
+import com.flx.fluxo.model.user.User;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
