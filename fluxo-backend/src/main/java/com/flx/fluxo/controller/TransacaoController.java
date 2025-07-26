@@ -2,9 +2,14 @@ package com.flx.fluxo.controller;
 
 import com.flx.fluxo.model.Transacao;
 import com.flx.fluxo.service.TransacaoService;
+import com.flx.fluxo.service.user.UserService;
 import lombok.AllArgsConstructor;
 import lombok.val;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +21,8 @@ import java.util.List;
 public class TransacaoController {
 
     private TransacaoService transacaoService;
+
+    private UserService userService;
 
     @PostMapping
     public ResponseEntity<Transacao> save(@RequestBody Transacao transacao) {
@@ -29,9 +36,11 @@ public class TransacaoController {
     @GetMapping
     public ResponseEntity<List<Transacao>> list(){
         try{
-            return ResponseEntity.ok(transacaoService.findAll());
-        } catch (Exception e) {
-            throw new RuntimeException("Erro ao recuperar transações: " + e.getMessage(), e);
+            return ResponseEntity.ok(transacaoService.findAllByIdUsuarioAtual());
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("Erro ao recuperar transações: " + e.getMessage(), e);
+        } catch (RuntimeException  e) {
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }
     }
 

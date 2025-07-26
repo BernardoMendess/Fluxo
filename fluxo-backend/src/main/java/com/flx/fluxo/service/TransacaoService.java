@@ -2,7 +2,9 @@ package com.flx.fluxo.service;
 
 import com.flx.fluxo.model.DAO.TransacaoDAO;
 import com.flx.fluxo.model.Transacao;
+import com.flx.fluxo.service.user.UserService;
 import lombok.AllArgsConstructor;
+import lombok.val;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -14,6 +16,8 @@ public class TransacaoService {
 
     private TransacaoDAO transacaoDAO;
 
+    private UserService userService;
+
     public Transacao save(Transacao transacao) {
         transacao.setDataCriacao(LocalDate.now());
         return transacaoDAO.save(transacao);
@@ -23,7 +27,7 @@ public class TransacaoService {
         return transacaoDAO.findObjById(id);
     }
 
-    public List<Transacao> findAll(){
-        return transacaoDAO.findAll();
+    public List<Transacao> findAllByIdUsuarioAtual(){
+        return transacaoDAO.findAllByidUsuario(userService.findIdUsuarioAtual());
     }
 }
