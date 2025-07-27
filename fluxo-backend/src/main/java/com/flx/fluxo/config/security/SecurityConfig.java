@@ -42,6 +42,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/transacao").authenticated()
                         .requestMatchers(HttpMethod.POST, "/transacao").authenticated()
                         .requestMatchers(HttpMethod.GET, "/categoria").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/categoria/tipo").authenticated()
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);

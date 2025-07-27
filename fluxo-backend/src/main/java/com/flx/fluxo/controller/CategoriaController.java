@@ -6,10 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.val;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -34,6 +31,16 @@ public class CategoriaController {
     public ResponseEntity<List<Categoria>> listarCategorias(){
         try {
             val categorias = categoriaService.findAll();
+            return ResponseEntity.ok(categorias);
+        } catch (RuntimeException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    @GetMapping("/tipo")
+    public ResponseEntity<List<Categoria>> listarCategoriasPorTipo(@RequestParam String tipo){
+        try {
+            val categorias = categoriaService.findAllByTipoCategoria(tipo);
             return ResponseEntity.ok(categorias);
         } catch (RuntimeException e) {
             throw new RuntimeException(e);

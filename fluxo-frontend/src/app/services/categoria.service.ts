@@ -14,4 +14,8 @@ export class CategoriaService {
   findAll(): Observable<Categoria[]> { 
     return this.httpClient.get<Categoria[]>(this.apiUrl);
   }
+
+  findAllByTipoTransacao(tipoTransacao : string): Observable<Categoria[]> { 
+    return this.httpClient.get<Categoria[]>(this.apiUrl + "/tipo?" + "tipo=" + tipoTransacao);
+  }
 }

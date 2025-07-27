@@ -24,6 +24,7 @@ export class TransacaoFormComponent implements OnInit {
   transacaoForm!: FormGroup;
   categorias: Categoria[] = [];
   isLoading = false;
+  tipoTransacao : string = '';
 
   tiposTransacao = [
     { value: 'ENTRADA', label: 'Entrada' },
@@ -40,7 +41,6 @@ export class TransacaoFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.buildForm();
-    this.loadCategorias();
   }
 
   private buildForm(): void {
@@ -55,7 +55,7 @@ export class TransacaoFormComponent implements OnInit {
   }
 
   private loadCategorias(): void {
-    this.categoriaService.findAll().subscribe(data => {
+    this.categoriaService.findAllByTipoTransacao(this.tipoTransacao).subscribe(data => {
       this.categorias = data;
     });
   }
@@ -91,5 +91,9 @@ export class TransacaoFormComponent implements OnInit {
 
   onCancel(): void {
     this.router.navigate(['/transacao']);
+  }
+
+  onTipoTransacaoChange(){
+    this.loadCategorias();
   }
 }

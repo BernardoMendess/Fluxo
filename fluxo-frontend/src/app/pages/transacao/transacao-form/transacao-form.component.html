@@ -32,8 +32,8 @@
       
       <div class="form-field">
         <label for="tipoTransacao">Tipo</label>
-        <select id="tipoTransacao" formControlName="tipoTransacao">
-          <option [ngValue]="null" disabled>Selecione uma categoria</option>
+        <select id="tipoTransacao" formControlName="tipoTransacao" [(ngModel)]="tipoTransacao" (change)="onTipoTransacaoChange()">
+          <option [ngValue]="null" disabled>Selecione o tipo da transação</option>
           <option *ngFor="let tipo of tiposTransacao" [value]="tipo.value">{{ tipo.label }}</option>
         </select>
       </div>
@@ -42,9 +42,14 @@
         <label for="idCategoria">Categoria</label>
         <select id="idCategoria" formControlName="idCategoria">
           <option [ngValue]="null" disabled>Selecione uma categoria</option>
-          <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nome }}</option>
+          <ng-container *ngIf="tipoTransacao !== ''; else selectTipoTransacao">
+            <option *ngFor="let categoria of categorias" [value]="categoria.id">{{ categoria.nome }}</option>
+          </ng-container>
+          <ng-template #selectTipoTransacao>
+            <option disabled>Selecione o tipo da transação</option>
+          </ng-template>
         </select>
-         <div *ngIf="transacaoForm.get('idCategoria')?.invalid && transacaoForm.get('idCategoria')?.touched" class="error-message">
+        <div *ngIf="transacaoForm.get('idCategoria')?.invalid && transacaoForm.get('idCategoria')?.touched" class="error-message">
           Selecione uma categoria.
         </div>
       </div>

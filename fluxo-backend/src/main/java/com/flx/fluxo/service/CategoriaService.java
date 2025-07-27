@@ -20,4 +20,8 @@ public class CategoriaService {
     public List<Categoria> findAll(){
         return categoriaDAO.findAll();
     }
+
+    public List<Categoria> findAllByTipoCategoria(String tipo){
+        return categoriaDAO.findAllByTipoCategoria(tipo);
+    }
 }
