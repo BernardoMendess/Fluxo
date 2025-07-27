@@ -53,4 +53,14 @@ public class TransacaoController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable long id) {
+        try {
+            transacaoService.deleteById(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao excluir transação: " + e.getMessage(), e);
+        }
+    }
+
 }

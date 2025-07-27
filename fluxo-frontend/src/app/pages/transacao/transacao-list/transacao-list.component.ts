@@ -23,7 +23,11 @@ export class TransacaoListComponent implements OnInit {
   constructor(private router: Router, private transacaoService: TransacaoService) { }
 
   ngOnInit(): void {
-    this.transacaoService.findAll().subscribe({
+    this.pesquisar();
+  }
+
+  pesquisar() {
+     this.transacaoService.findAll().subscribe({
       next: (data) => {
         this.allTransacoes = data;
         this.applyTransacaoFilter();
@@ -58,9 +62,10 @@ export class TransacaoListComponent implements OnInit {
 
   deleteTransacao(id: number): void {
     if (confirm(`Tem certeza que deseja excluir a transação com ID ${id}?`)) {
-      console.log(`Excluindo transação com ID: ${id}`);
-      this.allTransacoes = this.allTransacoes.filter(transacao => transacao.id !== id);
-      this.applyTransacaoFilter();
+      this.transacaoService.delete(id).subscribe({
+        next: () => {this.pesquisar();},
+        error: (err) => {console.error(`Erro ao excluir transação ${id}:`, err);}
+      });
     }
   }
 }

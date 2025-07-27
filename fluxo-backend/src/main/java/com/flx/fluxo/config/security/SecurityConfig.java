@@ -39,10 +39,16 @@ public class SecurityConfig {
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers(HttpMethod.POST, "/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/auth/register").permitAll()
+
+                        //transacao
                         .requestMatchers(HttpMethod.GET, "/transacao").authenticated()
                         .requestMatchers(HttpMethod.POST, "/transacao").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/transacao/{id}").authenticated()
+
+                        //categoria
                         .requestMatchers(HttpMethod.GET, "/categoria").authenticated()
                         .requestMatchers(HttpMethod.GET, "/categoria/tipo").authenticated()
+
                         .anyRequest().authenticated()
                 )
                 .addFilterBefore(securityFilter, UsernamePasswordAuthenticationFilter.class);

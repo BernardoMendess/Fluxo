@@ -31,4 +31,8 @@ public class TransacaoService {
     public List<Transacao> findAllByIdUsuarioAtual(){
         return transacaoDAO.findAllByidUsuario(userService.findIdUsuarioAtual());
     }
+
+    public void deleteById(long id) {
+        transacaoDAO.deleteById(id);
+    }
 }

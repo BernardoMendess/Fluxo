@@ -18,4 +18,8 @@ export class TransacaoService {
   save(transacao: Transacao): Observable<Transacao> {
     return this.httpClient.post<Transacao>(this.apiUrl, transacao);
   }
+
+  delete(id: number): Observable<void> { 
+    return this.httpClient.delete<void>(this.apiUrl + '/' + id);
+  }
 }
