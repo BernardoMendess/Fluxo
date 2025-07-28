@@ -1,0 +1,30 @@
+<app-default-form-layout
+  [title]="'Nova Categoria'"
+  submitBtnText="Salvar Categoria"
+  [disableSubmitBtn]="categoriaForm.invalid || isLoading"
+  (submitAction)="onSave()"
+  (cancelAction)="onCancel()"
+  (backAction)="onCancel()"
+>
+  <form [formGroup]="categoriaForm">
+    <div class="form-grid">
+
+      <div class="form-field">
+        <label for="nome">Nome</label>
+        <input id="nome" type="text" formControlName="nome" placeholder="Ex: Conta">
+        <div *ngIf="categoriaForm.get('nome')?.invalid && categoriaForm.get('nome')?.touched" class="error-message">
+          Nome é obrigatório.
+        </div>
+      </div>
+      
+      <div class="form-field">
+        <label for="tipoCategoria">Tipo</label>
+        <select id="tipoCategoria" formControlName="tipoCategoria">
+          <option [ngValue]="null" disabled>Selecione o tipo da categoria</option>
+          <option *ngFor="let tipo of tiposCategoria" [value]="tipo.value">{{ tipo.label }}</option>
+        </select>
+      </div>
+
+    </div>
+  </form>
+</app-default-form-layout>

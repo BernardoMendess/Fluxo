@@ -22,4 +22,8 @@ export class CategoriaService {
   delete(id: number): Observable<void> { 
     return this.httpClient.delete<void>(this.apiUrl + '/' + id);
   }
+
+  save(categoria: Categoria): Observable<Categoria> {
+    return this.httpClient.post<Categoria>(this.apiUrl, categoria);
+  }
 }

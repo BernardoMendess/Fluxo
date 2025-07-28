@@ -1,0 +1,48 @@
+@import "../../../../styles/variables.scss"; 
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 20px 25px;
+}
+
+.form-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  &.full-width {
+    grid-column: 1 / -1; 
+  }
+
+  label {
+    font-weight: 500;
+    color: #333;
+  }
+
+  input, select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 16px;
+
+    &:focus {
+      outline: none;
+      border-color: #4a148c; 
+      box-shadow: 0 0 0 2px rgba(74, 20, 140, 0.2);
+    }
+  }
+  
+  .error-message {
+    color: #d32f2f;
+    font-size: 13px;
+    margin-top: 4px;
+  }
+
+  small {
+      font-size: 13px;
+      color: #666;
+  }
+}

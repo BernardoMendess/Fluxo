@@ -70,13 +70,7 @@ export class TransacaoFormComponent implements OnInit {
 
     const formValue = this.transacaoForm.getRawValue();
 
-    const payload = {
-      ...formValue,
-      valor: Math.round(formValue.valor * 100),
-
-    };
-
-    this.transacaoService.save(payload).pipe(
+    this.transacaoService.save(formValue).pipe(
       finalize(() => this.isLoading = false)
     ).subscribe({
       next: () => {
