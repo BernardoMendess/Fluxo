@@ -18,4 +18,8 @@ export class CategoriaService {
   findAllByTipoTransacao(tipoTransacao : string): Observable<Categoria[]> { 
     return this.httpClient.get<Categoria[]>(this.apiUrl + "/tipo?" + "tipo=" + tipoTransacao);
   }
+
+  delete(id: number): Observable<void> { 
+    return this.httpClient.delete<void>(this.apiUrl + '/' + id);
+  }
 }

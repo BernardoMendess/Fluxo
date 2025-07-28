@@ -17,6 +17,10 @@ public class CategoriaService {
         return categoriaDAO.save(categoria);
     }
 
+    public void deleteById(long id) {
+        categoriaDAO.deleteById(id);
+    }
+
     public List<Categoria> findAll(){
         return categoriaDAO.findAll();
     }

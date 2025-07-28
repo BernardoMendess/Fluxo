@@ -27,6 +27,16 @@ public class CategoriaController {
         }
     }
 
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> delete(@PathVariable long id){
+        try {
+            categoriaService.deleteById(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            throw new RuntimeException("Erro ao excluir categoria: " + e.getMessage(), e);
+        }
+    }
+
     @GetMapping
     public ResponseEntity<List<Categoria>> listarCategorias(){
         try {

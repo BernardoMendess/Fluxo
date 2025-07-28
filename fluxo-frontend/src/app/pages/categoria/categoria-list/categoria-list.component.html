@@ -1,0 +1,43 @@
+<app-default-list-layout
+    [title]="'Listagem de Transações'"
+    [primaryBtnText]="'Nova Transação'"
+    (primaryAction)="navigateToNewCategoria()"
+>
+    <div search-area class="search-input-group">
+        <input
+            type="text"
+            placeholder="Buscar categoria..."
+            [(ngModel)]="pesquisa"
+            (input)="applyCategoriaFilter()"
+        >
+        <span class="search-icon">&#128269;</span>
+    </div>
+
+    <div class="table-container">
+        <table *ngIf="filteredCategorias.length > 0; else noItems">
+            <thead>
+                <tr>
+                    <th>Categoria</th>
+                    <th>Tipo</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let categoria of filteredCategorias">
+                    <td>{{ categoria.nome }}</td>
+                    <td>{{ categoria.tipoCategoria }}</td>
+                    <td class="action-buttons">
+                        <button class="btn-action edit" (click)="editCategoria(categoria.id)">Editar</button>
+                        <button class="btn-action delete" (click)="deleteCategoria(categoria.id)">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <ng-template #noItems>
+            <div class="no-items-message">
+                Nenhuma categoria encontrada.
+            </div>
+        </ng-template>
+    </div>
+</app-default-list-layout>

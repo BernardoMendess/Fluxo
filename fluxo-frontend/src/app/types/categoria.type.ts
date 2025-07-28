@@ -1,5 +1,5 @@
 export type Categoria = {
     id: number,
-    nome: number,
+    nome: string,
     tipoCategoria: string
 }
