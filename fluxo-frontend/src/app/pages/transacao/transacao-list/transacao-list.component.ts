@@ -22,6 +22,12 @@ export class TransacaoListComponent implements OnInit {
 
   constructor(private router: Router, private transacaoService: TransacaoService) { }
 
+  tiposTransacao = [
+    { value: 'ENTRADA', label: 'Entrada' },
+    { value: 'INVESTIMENTO', label: 'Investimento' },
+    { value: 'SAIDA', label: 'Saída' }
+  ];
+
   ngOnInit(): void {
     this.pesquisar();
   }
@@ -67,5 +73,14 @@ export class TransacaoListComponent implements OnInit {
         error: (err) => {console.error(`Erro ao excluir transação ${id}:`, err);}
       });
     }
+  }
+
+  getLabel(tipo: string): string | undefined {
+    for (const transacao of this.tiposTransacao) {
+      if (transacao.value === tipo) {
+        return transacao.label;
+      }
+    }
+    return undefined;
   }
 }

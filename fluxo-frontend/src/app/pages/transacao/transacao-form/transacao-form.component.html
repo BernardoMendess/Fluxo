@@ -1,5 +1,5 @@
 <app-default-form-layout
-  title="Nova Transação"
+  [title]="'Nova Transação'"
   submitBtnText="Salvar Transação"
   [disableSubmitBtn]="transacaoForm.invalid || isLoading"
   (submitAction)="onSave()"

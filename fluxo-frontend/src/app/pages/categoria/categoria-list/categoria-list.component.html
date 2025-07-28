@@ -1,6 +1,6 @@
 <app-default-list-layout
-    [title]="'Listagem de Transações'"
-    [primaryBtnText]="'Nova Transação'"
+    [title]="'Listagem de Categorias'"
+    [primaryBtnText]="'Nova Categoria'"
     (primaryAction)="navigateToNewCategoria()"
 >
     <div search-area class="search-input-group">
@@ -25,7 +25,7 @@
             <tbody>
                 <tr *ngFor="let categoria of filteredCategorias">
                     <td>{{ categoria.nome }}</td>
-                    <td>{{ categoria.tipoCategoria }}</td>
+                    <td>{{ getLabel(categoria.tipoCategoria) }}</td>
                     <td class="action-buttons">
                         <button class="btn-action edit" (click)="editCategoria(categoria.id)">Editar</button>
                         <button class="btn-action delete" (click)="deleteCategoria(categoria.id)">Excluir</button>

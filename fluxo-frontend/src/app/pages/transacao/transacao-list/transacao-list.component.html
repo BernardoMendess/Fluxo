@@ -28,7 +28,7 @@
                 <tr *ngFor="let transacao of filteredTransacoes">
                     <td>{{ transacao.descricao }}</td>
                     <td>R$ {{ transacao.valor | number:'1.2-2' }}</td>
-                    <td>{{ transacao.tipoTransacao }}</td>
+                    <td>{{ getLabel(transacao.tipoTransacao) }}</td>
                     <td>{{ transacao.dataTransacao | date:'dd/MM/yyyy' }}</td>
                     <td class="action-buttons">
                         <button class="btn-action edit" (click)="editTransacao(transacao.id)">Editar</button>

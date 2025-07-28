@@ -26,6 +26,12 @@ export class CategoriaListComponent implements OnInit {
     this.pesquisar();
   }
 
+   tiposCategoria = [
+    { value: 'ENTRADA', label: 'Entrada' },
+    { value: 'INVESTIMENTO', label: 'Investimento' },
+    { value: 'SAIDA', label: 'Saída' }
+  ];
+
   pesquisar() {
      this.categoriaService.findAll().subscribe({
       next: (data) => {
@@ -64,5 +70,14 @@ export class CategoriaListComponent implements OnInit {
         error: (err) => {console.error(`Erro ao excluir categoria ${id}:`, err);}
       });
     }
+  }
+
+  getLabel(tipo: string): string | undefined {
+    for (const categoria of this.tiposCategoria) {
+      if (categoria.value === tipo) {
+        return categoria.label;
+      }
+    }
+    return undefined;
   }
 }
