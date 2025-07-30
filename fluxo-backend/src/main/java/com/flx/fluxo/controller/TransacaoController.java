@@ -13,6 +13,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Controller
@@ -34,9 +35,9 @@ public class TransacaoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Transacao>> list(){
+    public ResponseEntity<List<Transacao>> list(@RequestParam(required = false) LocalDate data){
         try{
-            return ResponseEntity.ok(transacaoService.findAllByIdUsuarioAtual());
+            return ResponseEntity.ok(transacaoService.findAllByIdUsuarioAtual(data));
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Erro ao recuperar transações: " + e.getMessage(), e);
         } catch (RuntimeException  e) {
