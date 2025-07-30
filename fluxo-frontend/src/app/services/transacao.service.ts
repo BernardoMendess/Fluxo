@@ -11,8 +11,10 @@ export class TransacaoService {
 
   constructor(private httpClient: HttpClient) { }
 
-  findAll(): Observable<Transacao[]> { 
-    return this.httpClient.get<Transacao[]>(this.apiUrl);
+  findAll(data: string | null): Observable<Transacao[]> {
+    let url = this.apiUrl;
+    if (data) { url += '?data=' + data; }
+    return this.httpClient.get<Transacao[]>(url);
   }
 
   save(transacao: Transacao): Observable<Transacao> {

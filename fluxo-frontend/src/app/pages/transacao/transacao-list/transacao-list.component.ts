@@ -15,7 +15,14 @@ import { HttpClientModule } from '@angular/common/http';
   styleUrls: ['./transacao-list.component.scss']
 })
 export class TransacaoListComponent implements OnInit {
-  pesquisa: string = '';
+  pesquisa: string = ''
+  filtroData: string = 'todos';
+
+  opcoesFiltroData = [
+    { value: 'todos', label: 'Todo o período' },
+    { value: 'esteAno', label: 'Este ano' },
+    { value: 'ultimos30dias', label: 'Últimos 30 dias' }
+  ];
 
   allTransacoes: Transacao[] = [];
   filteredTransacoes: Transacao[] = [];
@@ -33,7 +40,19 @@ export class TransacaoListComponent implements OnInit {
   }
 
   pesquisar() {
-     this.transacaoService.findAll().subscribe({
+ let dataParaEnviar: string | null = null;
+    switch (this.filtroData) {
+      case 'esteAno':
+        const primeiroDiaDoAno = new Date(new Date().getFullYear(), 0, 1);
+        dataParaEnviar = this.formatarData(primeiroDiaDoAno);
+        break;
+      case 'ultimos30dias':
+        const data30diasAtras = new Date();
+        data30diasAtras.setDate(data30diasAtras.getDate() - 30);
+        dataParaEnviar = this.formatarData(data30diasAtras);
+        break;
+    }
+    this.transacaoService.findAll(dataParaEnviar).subscribe({
       next: (data) => {
         this.allTransacoes = data;
         this.applyTransacaoFilter();
@@ -42,6 +61,13 @@ export class TransacaoListComponent implements OnInit {
         console.error('Erro ao carregar transações:', error);
       }
     });
+  }
+
+  private formatarData(data: Date): string {
+    const ano = data.getFullYear();
+    const mes = (data.getMonth() + 1).toString().padStart(2, '0');
+    const dia = data.getDate().toString().padStart(2, '0');
+    return `${ano}-${mes}-${dia}`;
   }
 
   applyTransacaoFilter(): void {
