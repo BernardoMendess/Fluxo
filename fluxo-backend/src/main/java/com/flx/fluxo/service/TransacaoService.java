@@ -33,9 +33,13 @@ public class TransacaoService {
     }
 
     private List<Transacao> findAllByidUsuario(long idUsuario, LocalDate data, String categoria, String descricao){
+        if (categoria != null && categoria.trim().isEmpty()) categoria = null;
+        if (descricao != null && descricao.trim().isEmpty()) descricao = null;
+
         if(data == null){
-            return transacaoDAO.findAllByidUsuarioSemData(idUsuario);
+            return transacaoDAO.findAllByidUsuarioSemData(idUsuario, categoria, descricao);
         }
+
         return transacaoDAO.findAllByidUsuarioAndFiltros(idUsuario, categoria, descricao, data, LocalDate.now());
     }
 

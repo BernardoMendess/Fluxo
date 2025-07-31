@@ -11,9 +11,18 @@ export class TransacaoService {
 
   constructor(private httpClient: HttpClient) { }
 
-  findAll(data: string | null): Observable<Transacao[]> {
+  findAll(data?: string | null, categoria?: string, descricao?: string): Observable<Transacao[]> {
     let url = this.apiUrl;
-    if (data) { url += '?data=' + data; }
+    const params = [];
+
+    if (data) params.push(`data=${data}`);
+    if (categoria) params.push(`categoria=${encodeURIComponent(categoria)}`);
+    if (descricao) params.push(`descricao=${encodeURIComponent(descricao)}`);
+
+    if (params.length > 0) {
+      url += '?' + params.join('&');
+    }
+
     return this.httpClient.get<Transacao[]>(url);
   }
 

@@ -10,18 +10,19 @@ import java.util.List;
 
 public interface TransacaoDAO extends CrudRepository<Transacao, Long> {
 
-    @Query("SELECT  t.* FROM transacao t " +
+    @Query("SELECT t.* FROM transacao t " +
             "WHERE t.id_usuario = :idUsuario " +
-            "ORDER BY t.data_transacao")
-    List<Transacao> findAllByidUsuarioSemData(long idUsuario);
+            "AND (:categoria IS NULL OR t.tipo_transacao LIKE LOWER(CONCAT('%', :categoria, '%'))) " +
+            "AND (:descricao IS NULL OR LOWER(t.descricao) LIKE LOWER(CONCAT('%', :descricao, '%'))) " +
+            "ORDER BY t.data_transacao DESC")
+    List<Transacao> findAllByidUsuarioSemData(long idUsuario, String categoria, String descricao);
 
-    @Query("SELECT  t.* FROM transacao t " +
-            "INNER JOIN categoria c ON c.id = t.id_categoria " +
+    @Query("SELECT t.* FROM transacao t " +
             "WHERE t.id_usuario = :idUsuario " +
-            "AND c.nome = :categoria " +
-            "AND t.descricao = :descricao " +
+            "AND (:categoria IS NULL OR t.tipo_transacao LIKE LOWER(CONCAT('%', :categoria, '%'))) " +
+            "AND (:descricao IS NULL OR LOWER(t.descricao) LIKE LOWER(CONCAT('%', :descricao, '%'))) " +
             "AND t.data_transacao BETWEEN :dataInicial AND :dataFinal " +
-            "ORDER BY t.data_transacao")
+            "ORDER BY t.data_transacao DESC")
     List<Transacao> findAllByidUsuarioAndFiltros(long idUsuario, String categoria, String descricao, LocalDate dataInicial, LocalDate dataFinal);
 
     Transacao findObjById(long id);

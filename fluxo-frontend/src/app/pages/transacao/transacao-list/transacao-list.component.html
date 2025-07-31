@@ -4,22 +4,29 @@
     (primaryAction)="navigateToNewTransacao()"
 >
     <div search-area class="filter-group">
-        <div class="search-input-group">
-          <input
+        <input
             type="text"
-            placeholder="Buscar por descrição..."
-            [(ngModel)]="pesquisa"
-            (input)="applyTransacaoFilter()"
-          >
-          <span class="search-icon">&#128269;</span>
-        </div>
+            class="text-filter-input"
+            placeholder="Filtrar por categoria"
+            [(ngModel)]="filtroCategoria"
+        />
 
-        <select class="date-filter-select" [(ngModel)]="filtroData" (change)="pesquisar()">
-          <option *ngFor="let opcao of opcoesFiltroData" [value]="opcao.value">
+        <input
+            type="text"
+            class="text-filter-input"
+            placeholder="Filtrar por descrição"
+            [(ngModel)]="filtroDescricao"
+        />
+
+        <select class="date-filter-select" [(ngModel)]="filtroData">
+            <option *ngFor="let opcao of opcoesFiltroData" [value]="opcao.value">
             {{ opcao.label }}
-          </option>
+            </option>
         </select>
-      </div>
+
+        <button class="btn-action pesquisar" (click)="pesquisar()">Pesquisar</button>
+    </div>
+
     <div class="table-container">
         <table *ngIf="filteredTransacoes.length > 0; else noItems">
             <thead>

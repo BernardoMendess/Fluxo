@@ -10,13 +10,20 @@ import { HttpClientModule } from '@angular/common/http';
 @Component({
   selector: 'app-transacao-list',
   standalone: true,
-  imports: [DefaultListLayoutComponent, CommonModule, FormsModule, HttpClientModule],
+  imports: [
+    DefaultListLayoutComponent,
+    CommonModule,
+    FormsModule,
+    HttpClientModule
+  ],
   templateUrl: './transacao-list.component.html',
   styleUrls: ['./transacao-list.component.scss']
 })
 export class TransacaoListComponent implements OnInit {
-  pesquisa: string = ''
+  pesquisa: string = '';
   filtroData: string = 'todos';
+  filtroCategoria: string = '';
+  filtroDescricao: string = '';
 
   opcoesFiltroData = [
     { value: 'todos', label: 'Todo o período' },
@@ -27,7 +34,10 @@ export class TransacaoListComponent implements OnInit {
   allTransacoes: Transacao[] = [];
   filteredTransacoes: Transacao[] = [];
 
-  constructor(private router: Router, private transacaoService: TransacaoService) { }
+  constructor(
+    private router: Router,
+    private transacaoService: TransacaoService
+  ) {}
 
   tiposTransacao = [
     { value: 'ENTRADA', label: 'Entrada' },
@@ -36,31 +46,35 @@ export class TransacaoListComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.pesquisar();
+    this.pesquisar(); 
   }
 
-  pesquisar() {
- let dataParaEnviar: string | null = null;
+  pesquisar(): void {
+    let dataParaEnviar: string | null = null;
+    const hoje = new Date();
+
     switch (this.filtroData) {
       case 'esteAno':
-        const primeiroDiaDoAno = new Date(new Date().getFullYear(), 0, 1);
-        dataParaEnviar = this.formatarData(primeiroDiaDoAno);
+        dataParaEnviar = this.formatarData(new Date(hoje.getFullYear(), 0, 1));
         break;
       case 'ultimos30dias':
         const data30diasAtras = new Date();
-        data30diasAtras.setDate(data30diasAtras.getDate() - 30);
+        data30diasAtras.setDate(hoje.getDate() - 30);
         dataParaEnviar = this.formatarData(data30diasAtras);
         break;
     }
-    this.transacaoService.findAll(dataParaEnviar).subscribe({
-      next: (data) => {
-        this.allTransacoes = data;
-        this.applyTransacaoFilter();
-      },
-      error: (error) => {
-        console.error('Erro ao carregar transações:', error);
-      }
-    });
+
+    this.transacaoService
+      .findAll(dataParaEnviar, this.filtroCategoria, this.filtroDescricao)
+      .subscribe({
+        next: (data) => {
+          this.allTransacoes = data;
+          this.filteredTransacoes = data;
+        },
+        error: (error) => {
+          console.error('Erro ao carregar transações:', error);
+        }
+      });
   }
 
   private formatarData(data: Date): string {
@@ -68,20 +82,6 @@ export class TransacaoListComponent implements OnInit {
     const mes = (data.getMonth() + 1).toString().padStart(2, '0');
     const dia = data.getDate().toString().padStart(2, '0');
     return `${ano}-${mes}-${dia}`;
-  }
-
-  applyTransacaoFilter(): void {
-    if (!this.pesquisa) {
-      this.filteredTransacoes = [...this.allTransacoes];
-      return;
-    }
-
-    const lowerCaseSearchTerm = this.pesquisa.toLowerCase();
-    this.filteredTransacoes = this.allTransacoes.filter(transacao =>
-      transacao.descricao.toLowerCase().includes(lowerCaseSearchTerm) ||
-      transacao.tipoTransacao.toLowerCase().includes(lowerCaseSearchTerm) ||
-      (transacao.dataTransacao instanceof Date ? transacao.dataTransacao.toISOString().split('T')[0].includes(lowerCaseSearchTerm) : String(transacao.dataTransacao).includes(lowerCaseSearchTerm))
-    );
   }
 
   navigateToNewTransacao(): void {
@@ -95,18 +95,14 @@ export class TransacaoListComponent implements OnInit {
   deleteTransacao(id: number): void {
     if (confirm(`Tem certeza que deseja excluir a transação com ID ${id}?`)) {
       this.transacaoService.delete(id).subscribe({
-        next: () => {this.pesquisar();},
-        error: (err) => {console.error(`Erro ao excluir transação ${id}:`, err);}
+        next: () => this.pesquisar(),
+        error: (err) =>
+          console.error(`Erro ao excluir transação ${id}:`, err)
       });
     }
   }
 
   getLabel(tipo: string): string | undefined {
-    for (const transacao of this.tiposTransacao) {
-      if (transacao.value === tipo) {
-        return transacao.label;
-      }
-    }
-    return undefined;
+    return this.tiposTransacao.find(t => t.value === tipo)?.label;
   }
 }
