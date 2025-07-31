@@ -35,9 +35,11 @@ public class TransacaoController {
     }
 
     @GetMapping
-    public ResponseEntity<List<Transacao>> list(@RequestParam(required = false) LocalDate data){
+    public ResponseEntity<List<Transacao>> list(@RequestParam(required = false) LocalDate data,
+                                                @RequestParam(required = false) String categoria,
+                                                @RequestParam(required = false) String descricao){
         try{
-            return ResponseEntity.ok(transacaoService.findAllByIdUsuarioAtual(data));
+            return ResponseEntity.ok(transacaoService.findAllByIdUsuarioAtual(data, categoria, descricao));
         } catch (IllegalArgumentException e) {
             throw new IllegalArgumentException("Erro ao recuperar transações: " + e.getMessage(), e);
         } catch (RuntimeException  e) {
